@@ -1,9 +1,10 @@
 #! /usr/bin/env python3
 
 def main ():
-    data = read_data("data.txt")
-    scores = compare_values(data[0].split(), data[1].split())
-    print_results(scores)
+    for x in range(1, 3):
+        data = read_data("data_{}.txt".format(x))
+        scores = compare_values(data[0].split(), data[1].split())
+        print_results(x, scores)
 
 def read_data(filename):
     with open(filename) as fp:
@@ -28,8 +29,8 @@ def compare_values(a, b):
 
     return scores
 
-def print_results(scores):
-    print(" ".join(map(str, scores)))
+def print_results(example, scores):
+    print("Example {} Results:\n{}".format(example, " ".join(map(str, scores))))
 
 if __name__ == "__main__":
     main()
