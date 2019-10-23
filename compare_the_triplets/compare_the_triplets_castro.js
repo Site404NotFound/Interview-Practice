@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const input = fs.readFileSync('data.txt');
+const input = fs.readFileSync('data_1.txt');
 let args = input.toString().split("\n")
 
 function compareValues(aStr, bStr) {
