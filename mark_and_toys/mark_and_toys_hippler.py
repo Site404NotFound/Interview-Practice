@@ -24,7 +24,8 @@ def determine_max_toys(toys, budget, prices):
             total_spent += price
             max_toys += 1
         else:
-            return max_toys
+            break
+    return max_toys
 
 if __name__ == "__main__":
     main()
