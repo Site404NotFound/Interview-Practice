@@ -4,30 +4,44 @@ const sortMap = {
   a: 2,  
   b: 1,  
   c: 4,  
-  d: 3  
+  d: 3,
 };
 
 function checkSorted(list) {
-  let isSorted = true;
+  const sorted = {};
 
-  list.sort((a, b) => {
-    let newA = '';
-    let newB = '';
+  list.forEach((sentences, index) => {
+    let isSorted = true;
 
-    a.split('').forEach((letter) => {
-      newA += sortMap[letter];
+    sentences.sort((a, b) => {
+      let newA = '';
+      let newB = '';
+      let i;
+
+      for (i = 0; i < a.length; i++) {
+        newA += sortMap[a[i]];
+      }
+
+      for (i = 0; i < b.length; i++) {
+        newB += sortMap[b[i]];
+      }
+
+      if (newA > newB) {
+        isSorted = false;
+      }
     });
 
-    b.split('').forEach((letter) => {
-      newB += sortMap[letter];
-    });
-
-    if (a < b) {
-      isSorted = false;
-    }
+    sorted[index] = isSorted;
   });
 
-  console.log(isSorted);
+  Object.keys(sorted).forEach((index) => console.log(
+    `Sentences ${list[index]} ARE${sorted[index] ? '' : ' NOT'} in alphabetical order!`
+  ));
 }
 
-checkSorted(['acdb', 'dcba', 'cccc', 'badc']);
+checkSorted([
+  ['bbb', 'aaa', 'ddd', 'ccc'],
+  ['bbb', 'ddd', 'aaa', 'ccc'],
+  ['abcd', 'abcda'],
+  ['abcda', 'abcd']
+]);
