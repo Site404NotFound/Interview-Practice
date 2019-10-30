@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 /*
 Description:
@@ -22,7 +23,8 @@ function findSum(arr, sum) {
 
     if (index+1 >= min && result === sum) {
       meetsSum = true;
-      return false;
+      console.log(meetsSum);
+      return;
     }
 
     if (result > sum) {
@@ -32,5 +34,7 @@ function findSum(arr, sum) {
     index++;
   }
 
-  return meetsSum;
+  console.log(meetsSum);
 }
+
+findSum([2, 7, 5, 3, 2], 10);

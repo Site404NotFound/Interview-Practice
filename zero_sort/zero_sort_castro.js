@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 /*
 Description:
@@ -30,5 +31,7 @@ function zeroSort(arr) {
     }
   });
 
-  return arr;
+  console.log(arr);
 }
+
+zeroSort([0, 5, 6, -1, 0, 0, -4, 5, 1]);
