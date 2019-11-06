@@ -84,8 +84,8 @@ def top_view(root):
             current = found_nodes.pop(0)
             if current[0]: 
                 results.append(current[0].data)
-                if current[0] and current[1] and current[0].left_edge: found_nodes.append([current[0].left_edge, True])
-                if current[0] and not current[1] and current[0].right_edge: found_nodes.append([current[0].right_edge, False])
+                if current[1] and current[0].left_edge: found_nodes.append([current[0].left_edge, True])
+                if not current[1] and current[0].right_edge: found_nodes.append([current[0].right_edge, False])
     return results
 
 if __name__ == "__main__":
