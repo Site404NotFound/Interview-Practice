@@ -12,3 +12,4 @@ An assortment of algorithms, data structures, and practice problems intended for
 6. [Merge two sorted linked lists](https://www.hackerrank.com/challenges/merge-two-sorted-linked-lists/problem)
 7. [Tree: Level Order Traversal](https://www.hackerrank.com/challenges/tree-level-order-traversal/problem)
 8. [Tree: Top View](https://www.hackerrank.com/challenges/tree-top-view/problem)
+9. [Poisonous Plants](https://www.hackerrank.com/challenges/poisonous-plants/problem)
