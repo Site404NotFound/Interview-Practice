@@ -3,10 +3,10 @@
 const fs = require('fs');
 
 const input = fs.readFileSync('data.json');
-const tree = JSON.parse(input);
+const rootNode = JSON.parse(input);
 
-function levelOrder(tree) {
-  let start = tree;
+function levelOrder(rootNode) {
+  let start = rootNode;
 
   const queue = [start];
   const result = [];
@@ -30,4 +30,4 @@ function levelOrder(tree) {
   console.log(result.join(' -> '));
 }
 
-levelOrder(tree);
+levelOrder(rootNode);
