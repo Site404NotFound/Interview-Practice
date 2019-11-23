@@ -8,17 +8,17 @@ function getNextData(node = {}) {
   return getData(node.next);
 }
 
-function shouldInsert(root1, root2) {
-  return getData(root1) <= getData(root2) && getData(root2) <= getNextData(root1);
+function shouldMerge(head1, head2) {
+  return getData(head1) <= getData(head2) && getData(head2) <= getNextData(head1);
 }
 
-function mergeLists(root1, root2) {
-  let current1 = root1;
-  let current2 = root2;
+function mergeLists(head1, head2) {
+  let current1 = head1;
+  let current2 = head2;
   let tail = null;
   
   while (current1) {
-    if (shouldInsert(current1, current2)) {
+    if (shouldMerge(current1, current2)) {
       tail = current2.next;
       current2.next = current1.next;
       current1.next = current2;
@@ -33,7 +33,7 @@ function mergeLists(root1, root2) {
     current1 = current1.next;
   }
   
-  current1 = root1;
+  current1 = head1;
   
   while (current1) {
     console.log(getData(current1));
@@ -41,7 +41,7 @@ function mergeLists(root1, root2) {
   }
 }
 
-// TODO: Generate linked lists from data.txt
+// TODO: Build singly linked lists from data.txt
 
 mergeLists({
   data: 1,
