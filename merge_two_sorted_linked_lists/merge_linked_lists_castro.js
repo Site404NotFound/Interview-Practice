@@ -50,19 +50,16 @@ function SinglyLinkedList() {
   };
 }
 
+function range(start, end) {
+  return new Array(end - start + 1).fill().map((_, i) => i + start);
+}
+
 function makeLinkedList(list, data, index) {
-  let size = parseInt(data[index]);
-  let start = index + 1;
-  let end = start + size;
+  const size = parseInt(data[index]);
+  const start = index + 1;
+  const end = start + size;
 
-  let c = end - start;
-  let i = start;
-
-  while (c) {
-    list.addNode(parseInt(data[i]));
-    c--;
-    i++;
-  }
+  range(start, end - 1).forEach((i) => list.addNode(parseInt(data[i])));
 
   return index + size + 1;
 }
