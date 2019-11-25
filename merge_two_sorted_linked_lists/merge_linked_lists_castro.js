@@ -15,7 +15,7 @@ for (const i in Array(parseInt(data[0])).fill()) {
     index = makeLinkedList(lists[listIndex], data, index);
   }
 
-  let current = mergeLists(lists[0], lists[1]).head;
+  let current = mergeLists(lists[0].head, lists[1].head);
 
   const out = [];
 
@@ -79,9 +79,10 @@ function shouldMerge(head1, head2) {
   return getData(head1) <= getData(head2) && getData(head2) <= getNextData(head1);
 }
 
-function mergeLists(list1, list2) {
-  let current1 = list1.head;
-  let current2 = list2.head;
+function mergeLists(head1, head2) {
+  const lists = [head1, head2].sort((a, b) => a.data > b.data);
+  let current1 = lists[0];
+  let current2 = lists[1];
   let tail = null;
 
   while (current1) {
@@ -100,5 +101,5 @@ function mergeLists(list1, list2) {
     current1 = current1.next;
   }
 
-  return list1;
+  return lists[0];
 }
