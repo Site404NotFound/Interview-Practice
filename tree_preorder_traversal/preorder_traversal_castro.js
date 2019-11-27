@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 function preorderTraverse(headNode) {
+  const result = [];
+
   let current = headNode;
   let previous = null;
   
@@ -8,24 +10,26 @@ function preorderTraverse(headNode) {
     previous = current;
     
     if (current === headNode) {
-      console.log(current.data);
+      result.push(current.data);
     }
       
     if (current.left) {
       current = current.left;
-      console.log(current.data);
+      result.push(current.data);
     }
     
     if (current.right) {
       current = current.right;
-      console.log(current.data);
+      result.push(current.data);
     }
     
     if (current && (!current.left && !current.right)) {
       current = previous.right;
-      console.log(current && current.data);
+      result.push(current && current.data);
     }
   }
+  
+  console.log(result.join(' '));
 }
 
 preorderTraverse({
