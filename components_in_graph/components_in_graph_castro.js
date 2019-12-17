@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// NOTE: Work in progress...
-
 function Graph(count) {
   this.count = count;
   this.adjList = new Map();
@@ -15,12 +13,10 @@ function Graph(count) {
     this.adjList.get(b).push(a);
   };
 
-  this.getComponents = () => {
+  this.getComponentsResult = () => {
     const keys = this.adjList.keys();
-    const sizes = [];
-
-    let comp = {};
-    let conn = [];
+    
+    let components = {};
     let edgeHistory = [];
     let head = [];
     let tail = [];
@@ -28,51 +24,40 @@ function Graph(count) {
     let current = null;
     let previous = null;
 
-    let loops = 0;
-
     for (let v of keys) {
-      loops++;
-
-      let edges = this.adjList.get(v);
+      let edges = this.adjList.get(v).concat([v]);
+      
       let depth = 0;
 
       head = edges;
       
       while (edges.length) {
-        loops++;
-
         for (let i = 0; i < edges.length; i++) {
-          loops++;
-
-          edges = this.adjList.get(edges[i]);
+          edges = this.adjList.get(edges[i]).concat([v]);
 
           for (let j = 0; j < edges.length; j++) {
-            loops++;
-
             if (!edgeHistory.includes(edges[j])) {
               edgeHistory.push(edges[j]);
+              
               last = edges[j];
-            }
 
-            if (!conn.includes(edges[j])) {
               const edgetopush = edges[j];
+              
               const lastHead = head.concat([last]);
               
-              edges = this.adjList.get(edges[j]);
+              edges = this.adjList.get(edges[j]).concat([v]);
 
-              if (!tail.some(n => lastHead.includes(n))) {
+              if (!Object.keys(components).some(c => components[c].some(n => lastHead.includes(n)))) {
                 previous = current;
                 current = edgetopush;
-
-                comp[current] = [];
-
-                if (previous) {
-                  sizes.push(comp[previous].length);
-                }
+                
+                edgeHistory = [];
+                
+                components[current] = [];
               }
 
-              if (!comp[current].includes(edgetopush)) {
-                comp[current].push(edgetopush);
+              if (!components[current].includes(edgetopush)) {
+                components[current].push(edgetopush);
               }
 
               tail = lastHead;
@@ -89,15 +74,14 @@ function Graph(count) {
     }
 
     return {
-      loops,
-      smallestCount: Math.min.apply(this, sizes),
-      largestCount: Math.max.apply(this, sizes),
-      components: comp,
+      sizes: Object.keys(components).map(c => components[c].length),
+      components,
     };
   };
 }
 
-function componentsInGraph(count, vertices) {
+function componentsInGraph(vertices) {
+  const count = vertices.length;
   const graph = new Graph(count);
   const nodes = [];
 
@@ -116,16 +100,28 @@ function componentsInGraph(count, vertices) {
 
     graph.addEdge(a, b);
   });
-
-  console.log(graph.getComponents());
+  
+  const result = graph.getComponentsResult();
+  
+  return [Math.min.apply(this, result.sizes), Math.max.apply(this, result.sizes)];
 }
 
-componentsInGraph(7, [
-  [1,6],
-  [2,7],
-  [3,8],
-  [4,9],
-  [2,6],
-  [11,13],
-  [13,18]
-]);
+console.log(
+  componentsInGraph([
+    /*[1, 17],
+    [5, 13],
+    [7, 12],
+    [5, 17],
+    [5, 12],
+    [2, 17],
+    [1, 18],
+    [8, 13],
+    [2, 15],
+    [5, 20],*/
+    [1, 6],
+    [2, 7],
+    [3, 8],
+    [4, 9],
+    [2, 6],
+  ])
+);
